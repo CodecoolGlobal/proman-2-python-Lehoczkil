@@ -10,7 +10,7 @@ export let boardsManager = {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
-            showHideButton.addEventListener("click",showHideButtonHandler,{once:true})
+            showHideButton.addEventListener("click",showHideButtonHandler)
         }
     },
 };
