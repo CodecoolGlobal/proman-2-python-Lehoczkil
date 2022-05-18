@@ -11,4 +11,3 @@ export function boardBuilder(board) {
 export function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
 }
-
