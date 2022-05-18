@@ -38,7 +38,6 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/api/cards/<int:card_id>/delete/", methods=["DELETE"])
 def delete_card(card_id):
-    print("delete card in progress")
     queries.delete_card(card_id)
     return ""
 
