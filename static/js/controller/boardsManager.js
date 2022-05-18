@@ -13,6 +13,7 @@ export let boardsManager = {
             showHideButton.addEventListener("click",showHideButtonHandler)
         }
     },
+    addNewBoardHandler: addNewBoardHandler
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -25,4 +26,20 @@ function showHideButtonHandler(clickEvent) {
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
         cardsManager.loadCards(boardId);
     }
+}
+
+export function addNewBoardHandler() {
+    const addNewBoardButton = document.querySelector('.new-board-button');
+    addNewBoardButton.addEventListener('click', () => {
+        document.querySelector('.modal').classList.add('new-board-modal');
+    });
+    document.querySelector('#save-title-button').addEventListener('click', async () => {
+        document.querySelector('.modal').classList.remove('new-board-modal');
+        const boardTitle = document.querySelector('#board-title').value;
+        if (boardTitle !== '') {
+            const response = await dataHandler.createNewBoard(boardTitle);
+            const newBoard = boardBuilder(response);
+            domManager.addChild('.board-container', newBoard)
+        }
+    });
 }

@@ -43,6 +43,18 @@ def get_cards_for_board(board_id):
     return matching_cards
 
 
+
+def add_new_board(board_title):
+    return data_manager.execute_select(
+        """
+        INSERT INTO boards
+        (title)
+        VALUES (%(board_title)s)
+        RETURNING *
+        ;
+        """
+        , {"board_title": board_title}, fetchall=False)
+
 def get_cards_for_status(status_id):
     matching_cards = data_manager.execute_select(
         """
@@ -64,3 +76,4 @@ def delete_card(card_id):
         """
         , {"card_id": card_id}
     )
+
