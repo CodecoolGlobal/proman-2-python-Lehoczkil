@@ -117,6 +117,14 @@ section.board{
     cursor: pointer;
 }
 
+i.fas.fa-trash-alt.remove {
+    position: relative;
+    top: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    float: right;
+}
+
 .card-title{
     padding-right: 16px;
 }

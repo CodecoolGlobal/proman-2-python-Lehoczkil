@@ -8,6 +8,7 @@ mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
 
+
 @app.route("/")
 def index():
     """
@@ -35,12 +36,19 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
+
 @app.route("/api/new_board", methods=['POST'])
 @json_response
 def add_new_board():
     board_title = request.json.get('title')
     response = queries.add_new_board(board_title)
     return response
+
+@app.route("/api/cards/<int:card_id>/delete/", methods=["DELETE"])
+def delete_card(card_id):
+    queries.delete_card(card_id)
+    return ""
+
 
 
 def main():

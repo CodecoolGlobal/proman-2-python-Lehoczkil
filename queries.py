@@ -43,6 +43,7 @@ def get_cards_for_board(board_id):
     return matching_cards
 
 
+
 def add_new_board(board_title):
     return data_manager.execute_select(
         """
@@ -53,3 +54,26 @@ def add_new_board(board_title):
         ;
         """
         , {"board_title": board_title}, fetchall=False)
+
+def get_cards_for_status(status_id):
+    matching_cards = data_manager.execute_select(
+        """
+        SELECT * FROM cards
+        WHERE cards.status_id = %(status_id)s
+        ;
+        """
+        , {"status_id": status_id})
+
+    return matching_cards
+
+
+def delete_card(card_id):
+    data_manager.execute_delete(
+        """
+        DELETE FROM cards
+        WHERE cards.id = %(card_id)s
+        ;
+        """
+        , {"card_id": card_id}
+    )
+
