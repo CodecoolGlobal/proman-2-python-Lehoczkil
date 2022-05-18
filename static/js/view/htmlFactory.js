@@ -36,4 +36,3 @@ export function columnsBuilder(boardID) {
                     </div>
                 </div>`
 }
-

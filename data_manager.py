@@ -59,8 +59,15 @@ def execute_select(statement, variables=None, fetchall=True):
     return result_set
 
 
+
+def execute_insert(statement, variables=None, fetchall=True):
+    with establish_connection() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+            cursor.execute(statement, variables)
+
 def execute_delete(statement, variables):
     with establish_connection() as conn:
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
             cursor.execute(statement, variables)
+
 
