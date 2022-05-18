@@ -66,8 +66,17 @@ def delete_card(card_id):
     )
 
 
+def get_board(board_id):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        WHERE boards.id = %(board_id)s;""",
+        {"board_id": board_id}
+    )
+
+
 def update_board_title(board_id, new_title):
-    data_manager.execute_select(
+    return data_manager.execute_select(
         """
         UPDATE boards SET title = %(new_title)s
         WHERE id = %(board_id)s;""",

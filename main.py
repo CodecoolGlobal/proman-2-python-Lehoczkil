@@ -38,7 +38,6 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/api/cards/<int:card_id>/delete/", methods=["DELETE"])
 def delete_card(card_id):
-    print("delete card in progress")
     queries.delete_card(card_id)
     return ""
 
@@ -49,10 +48,16 @@ def get_card_by_id():
     pass
 
 
-@app.route("/api/boards/<int:board_id>/title", methods=['UPDATE'])
-def update_board_title(board_id:int):
+@app.route("/api/boards/<int:board_id>")
+@json_response
+def get_board_by_id(board_id):
+    return queries.get_board(board_id)
 
-    return queries.update_board_title(board_id, new_title)
+
+@app.route("/api/boards/<int:board_id>/update_title/<new_title>", methods=['POST'])
+def update_board_title(board_id: int, new_title):
+    queries.update_board_title(board_id, new_title)
+    return render_template(url_for('index'))
 
 
 def main():

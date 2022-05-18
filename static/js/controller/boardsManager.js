@@ -31,7 +31,10 @@ function showHideButtonHandler(clickEvent) {
 
 function updateTitle(clickEvent) {
     if (clickEvent.key === "Enter") {
-        let value = clickEvent.currentTarget.value
-        dataHandler.renameBoardTitle(value)
+        let value = {
+            "title": clickEvent.currentTarget.value
+        }
+        let boardId = clickEvent.currentTarget.dataset.boardId
+        dataHandler.renameBoardTitle(boardId, value)
     }
 }
