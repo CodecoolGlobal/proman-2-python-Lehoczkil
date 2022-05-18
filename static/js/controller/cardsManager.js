@@ -7,7 +7,8 @@ export let cardsManager = {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
             const content = cardBuilder(card);
-            domManager.addChild(`.board[data-board-id="${boardId}"]`, content);
+            console.log(card)
+            domManager.addChild(`.board-column-content[data-status-id="${card.status_id}"][data-board-id="${boardId}"]`, content);
             domManager.addEventListener(
                 `.card[data-card-id="${card.id}"]`,
                 "click",
