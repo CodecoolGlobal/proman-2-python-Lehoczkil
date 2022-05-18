@@ -43,6 +43,18 @@ def delete_card(card_id):
     return ""
 
 
+@app.route("/api/cards/<int:card_id>")
+@json_response
+def get_card_by_id():
+    pass
+
+
+@app.route("/api/boards/<int:board_id>/title", methods=['UPDATE'])
+def update_board_title(board_id:int):
+
+    return queries.update_board_title(board_id, new_title)
+
+
 def main():
     app.run(debug=True)
 

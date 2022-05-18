@@ -64,3 +64,12 @@ def delete_card(card_id):
         """
         , {"card_id": card_id}
     )
+
+
+def update_board_title(board_id, new_title):
+    data_manager.execute_select(
+        """
+        UPDATE boards SET title = %(new_title)s
+        WHERE id = %(board_id)s;""",
+        {"board_id": board_id, "new_title": new_title}
+    )

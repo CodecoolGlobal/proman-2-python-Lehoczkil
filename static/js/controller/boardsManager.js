@@ -11,6 +11,8 @@ export let boardsManager = {
             domManager.addChild("#root", content);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
             showHideButton.addEventListener("click",showHideButtonHandler)
+            const boardTitle = document.querySelector(`.board-title-input[data-board-id="${board.id}"]`)
+            boardTitle.addEventListener('keydown', updateTitle)
         }
     },
 };
@@ -24,5 +26,12 @@ function showHideButtonHandler(clickEvent) {
         columns = columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
         cardsManager.loadCards(boardId);
+    }
+}
+
+function updateTitle(clickEvent) {
+    if (clickEvent.key === "Enter") {
+        let value = clickEvent.currentTarget.value
+        dataHandler.renameBoardTitle(value)
     }
 }
