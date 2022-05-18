@@ -53,3 +53,14 @@ def get_cards_for_status(status_id):
         , {"status_id": status_id})
 
     return matching_cards
+
+
+def delete_card(card_id):
+    data_manager.execute_delete(
+        """
+        DELETE FROM cards
+        WHERE cards.id = %(card_id)s
+        ;
+        """
+        , {"card_id": card_id}
+    )

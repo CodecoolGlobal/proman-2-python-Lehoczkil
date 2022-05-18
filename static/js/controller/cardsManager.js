@@ -9,7 +9,7 @@ export let cardsManager = {
             const content = cardBuilder(card);
             await domManager.addChild(`.board-column-content[data-status-id="${card.status_id}"][data-board-id="${boardId}"]`, content);
             domManager.addEventListener(
-                `.card[data-card-id="${card.id}"]`,
+                `[data-card-id-remove="${card.id}"]`,
                 "click",
                 deleteButtonHandler
             );
@@ -18,4 +18,7 @@ export let cardsManager = {
 };
 
 function deleteButtonHandler(clickEvent) {
+    console.log(clickEvent.target.parentElement.dataset);
+    dataHandler.apiDelete(`/api/cards/${clickEvent.target.parentElement.dataset.cardId}/delete/`)
+    clickEvent.target.parentElement.remove()
 }
