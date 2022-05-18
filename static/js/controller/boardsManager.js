@@ -9,11 +9,8 @@ export let boardsManager = {
         for (let board of boards) {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
-            domManager.addEventListener(
-                `.toggle-board-button[data-board-id="${board.id}"]`,
-                "click",
-                showHideButtonHandler
-            );
+            const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
+            showHideButton.addEventListener("click",showHideButtonHandler,{once:true})
         }
     },
 };
