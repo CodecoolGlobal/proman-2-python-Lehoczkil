@@ -1,5 +1,5 @@
 import {dataHandler} from "../data/dataHandler.js";
-import {boardBuilder} from "../view/htmlFactory.js";
+import {boardBuilder, columnsBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 
@@ -10,13 +10,19 @@ export let boardsManager = {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
-            showHideButton.addEventListener("click",showHideButtonHandler,{once:true})
+            showHideButton.addEventListener("click",showHideButtonHandler)
         }
     },
 };
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.currentTarget.dataset.boardId;
-
-    cardsManager.loadCards(boardId);
+    let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
+    if(columns){
+        columns.remove();
+    }else {
+        columns = columnsBuilder(boardId);
+        domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
+        cardsManager.loadCards(boardId);
+    }
 }
