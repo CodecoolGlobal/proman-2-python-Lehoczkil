@@ -3,6 +3,7 @@ export function boardBuilder(board, status="not yet") {
                 <div class="board-header">
                     <span class="board-title">${board.title}</span>          
                     <button class="board-add">Add Card</button>
+                    <button class="add-column-button" data-board-id="${board.id}">Add Column<i class="fa-solid fa-circle-plus"></i></button>
                     <button class="board-toggle toggle-board-button" data-board-id="${board.id}"><i class="fas fa-chevron-down" ></i></button>
                 </div>
             </section>`;
@@ -13,6 +14,17 @@ export function cardBuilder(card) {
                 <i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i>
             </div>`;
 }
+
+
+
+export function newColumnBuilder(boardID, column) {
+    return `<div class="board-column">
+                <div class="board-column-title">${column.title}</div>
+                <div class="board-column-content" data-status-id="${column.id}" data-board-id=${boardID}></div>
+            </div>`
+}
+
+
 
 export function columnsBuilder(boardID) {
     return `<div class="board-columns" data-board-id=${boardID}>
