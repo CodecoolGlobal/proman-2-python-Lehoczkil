@@ -31,16 +31,19 @@ export let dataHandler = {
         );
     },
     createNewCard: async function (cardTitle, boardId, statusId) {
-        let response = await apiPost(`/api/boards/${boardId}/cards/add`,
-            {"title": cardTitle,
-                    "board_id": boardId,
-                    "status_id": statusId});
-        console.log(response)
-        return response
+        return await apiPost(`/api/boards/${boardId}/cards/add`,
+            {
+                "title": cardTitle,
+                "board_id": boardId,
+                "status_id": statusId
+            })
         // creates new card, saves it and calls the callback function with its data
     },
     deleteCard: async function (cardId) {
         await apiDelete(`/api/cards/${cardId}/delete/`)
+    },
+    deleteBoard: async function (boardId) {
+        await apiDelete(`/api/boards/${boardId}/delete/`)
     }
 };
 
