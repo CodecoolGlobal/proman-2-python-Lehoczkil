@@ -48,6 +48,7 @@ export async function columnsBuilder(boardID) {
     return `<div class="board-columns" data-board-id=${boardID}>
                 ${columnsContent}
             </div>`;
+}
 
 
     /*
