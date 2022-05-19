@@ -9,8 +9,9 @@ export function boardBuilder(board, status="not yet") {
 }
 
 export function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}">${card.title}
-                <i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i>
+    return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}">
+                <div class="card-remove"><i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i></div>
+                <div class="card-title">${card.title}</div>
             </div>`;
 }
 
