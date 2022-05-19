@@ -44,10 +44,21 @@ def add_new_board():
     response = queries.add_new_board(board_title)
     return response
 
+
 @app.route("/api/cards/<int:card_id>/delete/", methods=["DELETE"])
 def delete_card(card_id):
     queries.delete_card(card_id)
     return ""
+
+
+@app.route("/api/board/new_column", methods=['POST'])
+@json_response
+def new_column():
+    column_status = request.json.get('column_status')
+    response = queries.add_new_column(column_status)
+    return response
+
+
 
 
 
