@@ -63,7 +63,12 @@ export function addNewBoardHandler() {
         if (boardTitle !== '') {
             const response = await dataHandler.createNewBoard(boardTitle);
             const newBoard = boardBuilder(response);
-            domManager.addChild('.board-container', newBoard)
+            domManager.addChild('.board-container', newBoard);
+            const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${response.id}"]`);
+            const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${response.id}"]`);
+            deleteBoardButton.addEventListener("click",deleteBoardButtonHandler)
+            showHideButton.addEventListener("click",showHideButtonHandler)
+
         }
     });
 }
