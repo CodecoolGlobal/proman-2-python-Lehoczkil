@@ -145,3 +145,7 @@ i.fas.fa-trash-alt.remove {
 .new-board-modal {
     display: flex;
 }
+
+.add-column-button {
+    display: none;
+}
