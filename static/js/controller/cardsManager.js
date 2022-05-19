@@ -17,7 +17,7 @@ export let cardsManager = {
     },
 };
 
-function deleteCardButtonHandler(clickEvent) {
+export function deleteCardButtonHandler(clickEvent) {
     const cardId = (clickEvent.target.parentElement.parentElement.dataset.cardId);
     dataHandler.deleteCard(cardId)
     clickEvent.target.parentElement.parentElement.remove()

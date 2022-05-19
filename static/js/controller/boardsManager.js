@@ -1,7 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
-import {addButtonBuilder, boardBuilder, columnsBuilder} from "../view/htmlFactory.js";
+import {addCardButtonBuilder, boardBuilder, cardBuilder, columnsBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-import {cardsManager} from "./cardsManager.js";
+import {cardsManager, deleteCardButtonHandler} from "./cardsManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
@@ -20,27 +20,33 @@ function showHideButtonHandler(clickEvent) {
     const board = clickEvent.currentTarget.parentElement.parentElement;
     const boardId = board.dataset.boardId;
     let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
-    let addButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+    let addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
     if(board.childElementCount>1){
-        addButton.remove();
+        addCardButton.remove();
         columns.remove();
     }else {
-        addButton = addButtonBuilder(boardId);
+        addCardButton = addCardButtonBuilder(boardId);
         columns = columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
-        domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addButton);
-        addButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
-        addButton.addEventListener("click",addButtonHandler);
+        domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addCardButton);
+        addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+        addCardButton.addEventListener("click",addCardButtonHandler);
         cardsManager.loadCards(boardId);
     }
 }
 
-function addButtonHandler(clickEvent){
+function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
-    const column = document.querySelector(`.board-column-content[data-board-id="${boardId}"]`)
-    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res;
-    console.log(newCard)})
-    console.log(column)
+    let card
+    dataHandler.createNewCard("newCard", boardId,"1").then(res => {
+        card = cardBuilder(res);
+        domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,card);
+        domManager.addEventListener(
+                `[data-card-id-remove="${res.id}"]`,
+                "click",
+                deleteCardButtonHandler
+            );
+    });
 }
 
 

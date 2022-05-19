@@ -14,7 +14,7 @@ export function cardBuilder(card) {
             </div>`;
 }
 
-export function addButtonBuilder(boardId) {
+export function addCardButtonBuilder(boardId) {
     return `<button class="board-add" data-board-id=${boardId}>Add Card</button>`
 }
 
