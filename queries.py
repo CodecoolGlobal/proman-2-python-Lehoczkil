@@ -77,3 +77,26 @@ def delete_card(card_id):
         , {"card_id": card_id}
     )
 
+
+def add_card(board_id):
+    max_order = data_manager.execute_select(
+        """
+        SELECT max(card_order) from cards
+        WHERE board_id = %(board_id)s
+        """, {"board_id": board_id}, False
+    )
+    new_order = max_order['max'] + 1
+    data_manager.execute_insert(
+        """
+        INSERT INTO cards(board_id, status_id, title, card_order)
+        VALUES('%(board_id)s',
+               '1',
+               'new',
+               '%(card_order)s')
+        ;
+        """
+        , {"board_id": board_id,
+           "card_order": new_order}
+    )
+
+
