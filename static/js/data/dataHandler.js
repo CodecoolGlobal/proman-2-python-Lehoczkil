@@ -22,8 +22,10 @@ export let dataHandler = {
     },
     createNewColumn: async function (columnStatus, boardId) {
         return apiPost(
-            `/api/board/${boardId}/new_column`,
-            {'column_status': columnStatus}
+            `/api/board/new_column`,
+            {'column_status': columnStatus,
+                      'board_id': boardId
+            }
         )
     },
 

@@ -53,11 +53,12 @@ def add_new_column(column_status, board_id):
         """
         INSERT INTO statuses
         (title, board_id)
-        VALUES (%(column_status)s,%(board_id)s)
+        VALUES (%(column_status)s, %(board_id)s)
         RETURNING *
         ;
         """
-        , {"column_status": column_status}, fetchall=False)
+        , {"column_status": column_status,
+           "board_id": board_id}, fetchall=False)
 
 
 def get_cards_for_status(status_id):
