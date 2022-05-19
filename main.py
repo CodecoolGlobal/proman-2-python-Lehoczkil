@@ -59,11 +59,11 @@ def get_columns(board_id):
     return response
 
 
-@app.route("/api/board/new_column", methods=['POST'])
+@app.route("/api/board/<int:board_id>new_column", methods=['POST'])
 @json_response
-def new_column():
+def new_column(board_id):
     column_status = request.json.get('column_status')
-    response = queries.add_new_column(column_status)
+    response = queries.add_new_column(column_status, board_id)
     return response
 
 

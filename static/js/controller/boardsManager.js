@@ -38,7 +38,7 @@ async function showHideButtonHandler(clickEvent) {
         domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addCardButton);
         addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
         addCardButton.addEventListener("click",addCardButtonHandler);
-        cardsManager.loadCards(boardId);
+        await cardsManager.loadCards(boardId);
         addColumnButton.style.display = 'inline';
     }
 }
@@ -97,8 +97,7 @@ export function addColumnHandler(event) {
         document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
         const columnStatus = document.querySelector('#column-status').value;
         if (columnStatus !== '') {
-            const response = await dataHandler.createNewColumn(columnStatus);
-            console.log(boardID);
+            const response = await dataHandler.createNewColumn(columnStatus, boardID);
             const newColumn = newColumnBuilder(boardID, response);
             domManager.addChild('.board-columns', newColumn)
         }

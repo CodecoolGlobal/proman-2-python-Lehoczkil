@@ -4,8 +4,8 @@ export function boardBuilder(board, status="not yet") {
     return `<section class="board" data-board-id=${board.id}>
                 <div class="board-header" data-board-id=${board.id}>
                     <span class="board-title">${board.title}</span>          
-                    <button class="add-column-button" data-board-id="${board.id}">Add Column</button>
                     <span class="board-remove"><i class="fas fa-trash-alt board-remove" data-board-id-remove="${board.id}"></i></span>
+                    <button class="add-column-button" data-board-id="${board.id}">Add Column</button>
                     <button class="board-toggle toggle-board-button" data-board-id="${board.id}"><i class="fas fa-chevron-down" ></i></button>
                 </div>
             </section>`;

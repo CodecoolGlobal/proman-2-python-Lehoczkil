@@ -48,12 +48,12 @@ def add_new_board(board_title):
         """, {"board_title": board_title}, fetchall=False)
 
 
-def add_new_column(column_status):
+def add_new_column(column_status, board_id):
     return data_manager.execute_select(
         """
         INSERT INTO statuses
-        (title)
-        VALUES (%(column_status)s)
+        (title, board_id)
+        VALUES (%(column_status)s,%(board_id)s)
         RETURNING *
         ;
         """
