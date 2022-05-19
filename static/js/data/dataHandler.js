@@ -17,6 +17,9 @@ export let dataHandler = {
     getCard: async function (cardId) {
         // the card is retrieved and then the callback function is called with the card
     },
+    getColumnsByBoardId: async function (boardId) {
+        return apiGet(`/api/columns/${boardId}`);
+    },
     createNewColumn: async function (columnStatus) {
         return apiPost(
             `/api/board/new_column`,

@@ -7,6 +7,7 @@ export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
         for (let board of boards) {
+            //await columnsBuilder(board.dataset.boardId);
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${board.id}"]`);
@@ -18,7 +19,7 @@ export let boardsManager = {
     addNewBoardHandler: addNewBoardHandler
 };
 
-function showHideButtonHandler(clickEvent) {
+async function showHideButtonHandler(clickEvent) {
     const board = clickEvent.currentTarget.parentElement.parentElement;
     const boardId = board.dataset.boardId;
     const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${boardId}"]`);
@@ -30,7 +31,8 @@ function showHideButtonHandler(clickEvent) {
         addColumnButton.style.display = 'none';
     }else {
         addButton = addButtonBuilder(boardId);
-        columns = columnsBuilder(boardId);
+        columns = await columnsBuilder(boardId);
+        console.log(columns);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
         domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addButton);
         addButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);

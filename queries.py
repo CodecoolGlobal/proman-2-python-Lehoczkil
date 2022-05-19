@@ -113,3 +113,13 @@ def add_card(board_id):
     )
 
 
+def get_columns_by_board_id(board_id):
+    columns = data_manager.execute_select(
+        """
+        SELECT * FROM statuses s
+        WHERE s.board_id = %(board_id)s
+        ;
+        """
+        , {"board_id": board_id})
+
+    return columns
