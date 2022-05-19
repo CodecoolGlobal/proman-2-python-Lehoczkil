@@ -90,16 +90,17 @@ export function addNewBoardHandler() {
 
 export function addColumnHandler(event) {
     const boardID = event.currentTarget.dataset.boardId;
-    console.log(boardID);
     const addColumnButton = document.querySelector('.add-column-button');
     document.querySelector('.modal.add-column-modal').classList.add('new-board-modal');
-    document.querySelector('#save-status-button').addEventListener('click', async () => {
-        document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
-        const columnStatus = document.querySelector('#column-status').value;
-        if (columnStatus !== '') {
-            const response = await dataHandler.createNewColumn(columnStatus, boardID);
-            const newColumn = newColumnBuilder(boardID, response);
-            domManager.addChild('.board-columns', newColumn)
+    const saveChangesButton = document.querySelector('#save-status-button')
+            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
+                document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
+                const columnStatus = document.querySelector('#column-status').value;
+                if (columnStatus !== '') {
+                    const response = await dataHandler.createNewColumn(columnStatus, boardID);
+                    const newColumn = newColumnBuilder(boardID, response);
+                    saveChangesButton.removeEventListener('click', saveChangesButton.handler);
+                    domManager.addChild('.board-columns', newColumn)
         }
     });
 }
