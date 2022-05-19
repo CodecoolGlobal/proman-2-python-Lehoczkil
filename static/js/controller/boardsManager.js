@@ -1,5 +1,5 @@
 import {dataHandler} from "../data/dataHandler.js";
-import {boardBuilder, columnsBuilder, newColumnBuilder} from "../view/htmlFactory.js";
+import {addButtonBuilder, boardBuilder, columnsBuilder, newColumnBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 
@@ -19,18 +19,34 @@ export let boardsManager = {
 };
 
 function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.currentTarget.dataset.boardId;
+    const board = clickEvent.currentTarget.parentElement.parentElement;
+    const boardId = board.dataset.boardId;
     const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${boardId}"]`);
     let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
-    if(columns){
+    let addButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+    if(board.childElementCount>1){
+        addButton.remove();
         columns.remove();
     }else {
+        addButton = addButtonBuilder(boardId);
         columns = columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
+        domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addButton);
+        addButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+        addButton.addEventListener("click",addButtonHandler);
         cardsManager.loadCards(boardId);
         addColumnButton.style.display = 'inline';
     }
 }
+
+function addButtonHandler(clickEvent){
+    const boardId = clickEvent.target.dataset.boardId
+    const column = document.querySelector(`.board-column-content[data-board-id="${boardId}"]`)
+    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res;
+    console.log(newCard)})
+    console.log(column)
+}
+
 
 export function addNewBoardHandler() {
     const addNewBoardButton = document.querySelector('.new-board-button');

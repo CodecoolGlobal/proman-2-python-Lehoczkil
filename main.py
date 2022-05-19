@@ -62,6 +62,14 @@ def new_column():
 
 
 
+@app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])
+def add_card(board_id):
+    card = request.json
+    print(card)
+    queries.add_card(board_id)
+    return card
+
+
 def main():
     app.run(debug=True)
 

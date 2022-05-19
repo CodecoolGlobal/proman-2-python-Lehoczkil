@@ -11,14 +11,14 @@ export let cardsManager = {
             domManager.addEventListener(
                 `[data-card-id-remove="${card.id}"]`,
                 "click",
-                deleteButtonHandler
+                deleteCardButtonHandler
             );
         }
     },
 };
 
-function deleteButtonHandler(clickEvent) {
-    const cardId = (clickEvent.target.parentElement.dataset.cardId);
+function deleteCardButtonHandler(clickEvent) {
+    const cardId = (clickEvent.target.parentElement.parentElement.dataset.cardId);
     dataHandler.deleteCard(cardId)
-    clickEvent.target.parentElement.remove()
+    clickEvent.target.parentElement.parentElement.remove()
 }
