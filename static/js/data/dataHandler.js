@@ -25,6 +25,12 @@ export let dataHandler = {
         );
     },
     createNewCard: async function (cardTitle, boardId, statusId) {
+        return await apiPost(`/api/boards/${boardId}/cards/add`,
+            {
+                "title": cardTitle,
+                "board_id": boardId,
+                "status_id": statusId
+            })
         // creates new card, saves it and calls the callback function with its data
     },
     renameBoardTitle: async  function (boardId, newTitle) {

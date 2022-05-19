@@ -1,19 +1,21 @@
 export function boardBuilder(board, status="not yet") {
-    return `<section class="board" data-board-id=${board.id}>
-                <div class="board-header">
-                    <span class="board-title" data-board-id=${board.id}>${board.title}</span>
+    return `<section class="board" data-board-id=${board.id}>        
+                <div class="board-header" data-board-id=${board.id}>
                     <input class="board-title-input borderless-input" data-board-id=${board.id}  value="${board.title}">         
-                    <button class="board-add">Add Card</button>
-                    <button class="column-add">Add Column</button>
                     <button class="board-toggle toggle-board-button" data-board-id="${board.id}"><i class="fas fa-chevron-down" ></i></button>
                 </div>
             </section>`;
 }
 
 export function cardBuilder(card) {
-    return `<div class="card card-title-input borderless-input" data-card-id="${card.id}" data-card-status-id="${card.status_id}">${card.title}
-                <i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i>
+    return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}">
+                <div class="card-remove"><i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i></div>
+                <div class="card-title">${card.title}</div>
             </div>`;
+}
+
+export function addCardButtonBuilder(boardId) {
+    return `<button class="board-add" data-board-id=${boardId}>Add Card</button>`
 }
 
 export function columnsBuilder(boardID) {

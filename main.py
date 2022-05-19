@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, request
-from dotenv import load_dotenv
-from util import json_response
 import mimetypes
+
+from dotenv import load_dotenv
+from flask import Flask, render_template, url_for, request
+
 import queries
+from util import json_response
 
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
@@ -36,7 +38,6 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
-
 @app.route("/api/new_board", methods=['POST'])
 @json_response
 def add_new_board():
@@ -44,10 +45,19 @@ def add_new_board():
     response = queries.add_new_board(board_title)
     return response
 
+
 @app.route("/api/cards/<int:card_id>/delete/", methods=["DELETE"])
 def delete_card(card_id):
     queries.delete_card(card_id)
     return ""
+
+
+@app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])
+@json_response
+def add_card(board_id):
+    card = request.json
+    print(card)
+    return queries.add_card(board_id)
 
 
 @app.route("/api/cards/<int:card_id>")

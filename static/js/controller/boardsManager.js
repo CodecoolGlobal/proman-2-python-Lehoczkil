@@ -1,7 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
-import {boardBuilder, columnsBuilder} from "../view/htmlFactory.js";
+import {addCardButtonBuilder, boardBuilder, cardBuilder, columnsBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-import {cardsManager} from "./cardsManager.js";
+import {cardsManager, deleteCardButtonHandler} from "./cardsManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
@@ -19,16 +19,38 @@ export let boardsManager = {
 };
 
 function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.currentTarget.dataset.boardId;
+    const board = clickEvent.currentTarget.parentElement.parentElement;
+    const boardId = board.dataset.boardId;
     let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
-    if(columns){
+    let addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+    if(board.childElementCount>1){
+        addCardButton.remove();
         columns.remove();
     }else {
+        addCardButton = addCardButtonBuilder(boardId);
         columns = columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
+        domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addCardButton);
+        addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
+        addCardButton.addEventListener("click",addCardButtonHandler);
         cardsManager.loadCards(boardId);
     }
 }
+
+function addCardButtonHandler(clickEvent){
+    const boardId = clickEvent.target.dataset.boardId
+    let card
+    dataHandler.createNewCard("newCard", boardId,"1").then(res => {
+        card = cardBuilder(res);
+        domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,card);
+        domManager.addEventListener(
+                `[data-card-id-remove="${res.id}"]`,
+                "click",
+                deleteCardButtonHandler
+            );
+    });
+}
+
 
 export function addNewBoardHandler() {
     const addNewBoardButton = document.querySelector('.new-board-button');
