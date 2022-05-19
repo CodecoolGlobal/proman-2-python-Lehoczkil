@@ -55,6 +55,19 @@ def add_new_board(board_title):
         """
         , {"board_title": board_title}, fetchall=False)
 
+
+def add_new_column(column_status):
+    return data_manager.execute_select(
+        """
+        INSERT INTO statuses
+        (title)
+        VALUES (%(column_status)s)
+        RETURNING *
+        ;
+        """
+        , {"column_status": column_status}, fetchall=False)
+
+
 def get_cards_for_status(status_id):
     matching_cards = data_manager.execute_select(
         """
