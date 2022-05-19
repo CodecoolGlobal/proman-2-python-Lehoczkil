@@ -1,5 +1,5 @@
 import {dataHandler} from "../data/dataHandler.js";
-import {boardBuilder, columnsBuilder} from "../view/htmlFactory.js";
+import {boardBuilder, columnsBuilder, newColumnBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 
@@ -9,6 +9,8 @@ export let boardsManager = {
         for (let board of boards) {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
+            const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${board.id}"]`);
+            addColumnButton.addEventListener("click", addColumnHandler);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
             showHideButton.addEventListener("click",showHideButtonHandler)
         }
@@ -18,6 +20,7 @@ export let boardsManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.currentTarget.dataset.boardId;
+    const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${boardId}"]`);
     let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
     if(columns){
         columns.remove();
@@ -25,21 +28,39 @@ function showHideButtonHandler(clickEvent) {
         columns = columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
         cardsManager.loadCards(boardId);
+        addColumnButton.style.display = 'inline';
     }
 }
 
 export function addNewBoardHandler() {
     const addNewBoardButton = document.querySelector('.new-board-button');
     addNewBoardButton.addEventListener('click', () => {
-        document.querySelector('.modal').classList.add('new-board-modal');
+        document.querySelector('.modal.add-board-modal').classList.add('new-board-modal');
     });
     document.querySelector('#save-title-button').addEventListener('click', async () => {
-        document.querySelector('.modal').classList.remove('new-board-modal');
+        document.querySelector('.modal.add-board-modal').classList.remove('new-board-modal');
         const boardTitle = document.querySelector('#board-title').value;
         if (boardTitle !== '') {
             const response = await dataHandler.createNewBoard(boardTitle);
             const newBoard = boardBuilder(response);
             domManager.addChild('.board-container', newBoard)
+        }
+    });
+}
+
+export function addColumnHandler(event) {
+    const boardID = event.currentTarget.dataset.boardId;
+    console.log(boardID);
+    const addColumnButton = document.querySelector('.add-column-button');
+    document.querySelector('.modal.add-column-modal').classList.add('new-board-modal');
+    document.querySelector('#save-status-button').addEventListener('click', async () => {
+        document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
+        const columnStatus = document.querySelector('#column-status').value;
+        if (columnStatus !== '') {
+            const response = await dataHandler.createNewColumn(columnStatus);
+            console.log(boardID);
+            const newColumn = newColumnBuilder(boardID, response);
+            domManager.addChild('.board-columns', newColumn)
         }
     });
 }
