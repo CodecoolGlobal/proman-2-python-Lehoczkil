@@ -22,3 +22,11 @@ export function deleteCardButtonHandler(clickEvent) {
     dataHandler.deleteCard(cardId)
     clickEvent.target.parentElement.parentElement.remove()
 }
+
+export function deleteBoardButtonHandler(clickEvent) {
+    const board = (clickEvent.target.parentElement.parentElement.parentElement);
+    const boardId = board.dataset.boardId
+    console.log(board)
+    dataHandler.deleteBoard(boardId)
+    board.remove()
+}

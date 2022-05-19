@@ -1,7 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {addCardButtonBuilder, boardBuilder, cardBuilder, columnsBuilder} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-import {cardsManager, deleteCardButtonHandler} from "./cardsManager.js";
+import {cardsManager, deleteCardButtonHandler, deleteBoardButtonHandler} from "./cardsManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
@@ -10,6 +10,8 @@ export let boardsManager = {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${board.id}"]`);
+            const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${board.id}"]`);
+            deleteBoardButton.addEventListener("click",deleteBoardButtonHandler)
             showHideButton.addEventListener("click",showHideButtonHandler)
         }
     },

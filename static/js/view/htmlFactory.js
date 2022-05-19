@@ -1,7 +1,8 @@
 export function boardBuilder(board, status="not yet") {
     return `<section class="board" data-board-id=${board.id}>
                 <div class="board-header" data-board-id=${board.id}>
-                    <span class="board-title">${board.title}</span>          
+                    <span class="board-title">${board.title}</span>
+                    <span class="board-remove"><i class="fas fa-trash-alt board-remove" data-board-id-remove="${board.id}"></i></span>        
                     <button class="board-toggle toggle-board-button" data-board-id="${board.id}"><i class="fas fa-chevron-down" ></i></button>
                 </div>
             </section>`;
@@ -9,7 +10,7 @@ export function boardBuilder(board, status="not yet") {
 
 export function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}">
-                <div class="card-remove"><i class="fas fa-trash-alt remove" data-card-id-remove="${card.id}"></i></div>
+                <div class="card-remove"><i class="fas fa-trash-alt remove-card" data-card-id-remove="${card.id}"></i></div>
                 <div class="card-title">${card.title}</div>
             </div>`;
 }

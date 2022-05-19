@@ -66,6 +66,14 @@ def delete_card(card_id):
         """, {"card_id": card_id})
 
 
+def delete_board(board_id):
+    data_manager.execute_delete("""
+        DELETE FROM boards
+        WHERE id = %(board_id)s
+        ;
+        """, {"board_id": board_id})
+
+
 def add_card(board_id):
     return data_manager.execute_select(statement="""
         INSERT INTO cards(board_id, status_id, title, card_order)
