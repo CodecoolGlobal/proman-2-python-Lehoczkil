@@ -56,6 +56,10 @@ export function addNewBoardHandler() {
     const addNewBoardButton = document.querySelector('.new-board-button');
     addNewBoardButton.addEventListener('click', () => {
         document.querySelector('.modal').classList.add('new-board-modal');
+        let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+        modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.modal').classList.remove('new-board-modal');
+        }));
     });
     document.querySelector('#save-title-button').addEventListener('click', async () => {
         document.querySelector('.modal').classList.remove('new-board-modal');
@@ -66,8 +70,8 @@ export function addNewBoardHandler() {
             domManager.addChild('.board-container', newBoard);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${response.id}"]`);
             const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${response.id}"]`);
-            deleteBoardButton.addEventListener("click",deleteBoardButtonHandler)
-            showHideButton.addEventListener("click",showHideButtonHandler)
+            deleteBoardButton.addEventListener("click", deleteBoardButtonHandler)
+            showHideButton.addEventListener("click", showHideButtonHandler)
 
         }
     });
