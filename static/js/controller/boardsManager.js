@@ -27,6 +27,7 @@ function showHideButtonHandler(clickEvent) {
     if(board.childElementCount>1){
         addButton.remove();
         columns.remove();
+        addColumnButton.style.display = 'none';
     }else {
         addButton = addButtonBuilder(boardId);
         columns = columnsBuilder(boardId);
