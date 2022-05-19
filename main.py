@@ -51,6 +51,14 @@ def delete_card(card_id):
     return ""
 
 
+@app.route('/api/columns/<int:board_id>')
+@json_response
+def get_columns(board_id):
+    response = queries.get_columns_by_board_id(board_id)
+    print(response)
+    return response
+
+
 @app.route("/api/board/new_column", methods=['POST'])
 @json_response
 def new_column():

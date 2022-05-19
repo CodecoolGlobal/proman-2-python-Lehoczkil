@@ -1,3 +1,5 @@
+import {dataHandler} from "../data/dataHandler.js";
+
 export function boardBuilder(board, status="not yet") {
     return `<section class="board" data-board-id=${board.id}>
                 <div class="board-header" data-board-id=${board.id}>
@@ -29,7 +31,26 @@ export function newColumnBuilder(boardID, column) {
 }
 
 
-export function columnsBuilder(boardID) {
+export async function columnsBuilder(boardID) {
+
+    let columns = await dataHandler.getColumnsByBoardId(boardID);
+
+    console.log(columns);
+    let columnsContent = ``;
+
+    columns.forEach((column) => {
+        columnsContent += `<div class="board-column">
+                               <div class="board-column-title">${column.title}</div>
+                               <div class="board-column-content" data-status-id="${column.id}" data-board-id=${column.board_id}></div>
+                           </div>`
+    });
+    console.log(columnsContent)
+    return `<div class="board-columns" data-board-id=${boardID}>
+                ${columnsContent}
+            </div>`;
+
+
+    /*
     return `<div class="board-columns" data-board-id=${boardID}>
                     <div class="board-column">
                         <div class="board-column-title">New</div>
@@ -48,4 +69,4 @@ export function columnsBuilder(boardID) {
                         <div class="board-column-content" data-status-id="4" data-board-id=${boardID}></div>
                     </div>
                 </div>`
-}
+}*/

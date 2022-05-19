@@ -48,7 +48,6 @@ def add_new_board(board_title):
         """, {"board_title": board_title}, fetchall=False)
 
 
-
 def add_new_column(column_status):
     return data_manager.execute_select(
         """
@@ -97,3 +96,15 @@ def add_card(board_id):
         WHERE board_id = %(board_id)s))
         RETURNING *;
         """, variables={"board_id": board_id}, fetchall=False)
+
+
+def get_columns_by_board_id(board_id):
+    columns = data_manager.execute_select(
+        """
+        SELECT * FROM statuses s
+        WHERE s.board_id = %(board_id)s
+        ;
+        """
+        , {"board_id": board_id})
+
+    return columns

@@ -7,6 +7,7 @@ export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
         for (let board of boards) {
+            //await columnsBuilder(board.dataset.boardId);
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${board.id}"]`);
@@ -20,7 +21,7 @@ export let boardsManager = {
     addNewBoardHandler: addNewBoardHandler
 };
 
-function showHideButtonHandler(clickEvent) {
+async function showHideButtonHandler(clickEvent) {
     const board = clickEvent.currentTarget.parentElement.parentElement;
     const boardId = board.dataset.boardId;
     const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${boardId}"]`);
@@ -32,7 +33,7 @@ function showHideButtonHandler(clickEvent) {
         addColumnButton.style.display = 'none';
     }else {
         addCardButton = addCardButtonBuilder(boardId);
-        columns = columnsBuilder(boardId);
+        columns = await columnsBuilder(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, columns);
         domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addCardButton);
         addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
@@ -44,6 +45,10 @@ function showHideButtonHandler(clickEvent) {
 
 function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
+    const column = document.querySelector(`.board-column-content[data-board-id="${boardId}"]`)
+    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res;
+    console.log(newCard)})
+    console.log(column)
     let card
     dataHandler.createNewCard("newCard", boardId,"1").then(res => {
         card = cardBuilder(res);
@@ -60,10 +65,11 @@ function addCardButtonHandler(clickEvent){
 export function addNewBoardHandler() {
     const addNewBoardButton = document.querySelector('.new-board-button');
     addNewBoardButton.addEventListener('click', () => {
+        document.querySelector('.modal.add-board-modal').classList.add('new-board-modal');
         document.querySelector('.modal').classList.add('new-board-modal');
         let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
         modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
-        document.querySelector('.modal').classList.remove('new-board-modal');
+            document.querySelector('.modal').classList.remove('new-board-modal');
         }));
     });
     document.querySelector('#save-title-button').addEventListener('click', async () => {
@@ -75,8 +81,8 @@ export function addNewBoardHandler() {
             domManager.addChild('.board-container', newBoard);
             const showHideButton = document.querySelector(`.toggle-board-button[data-board-id="${response.id}"]`);
             const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${response.id}"]`);
-            deleteBoardButton.addEventListener("click", deleteBoardButtonHandler)
-            showHideButton.addEventListener("click", showHideButtonHandler)
+            deleteBoardButton.addEventListener("click", deleteBoardButtonHandler);
+            showHideButton.addEventListener("click", showHideButtonHandler);
 
         }
     });
