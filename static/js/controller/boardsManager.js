@@ -46,16 +46,16 @@ async function showHideButtonHandler(clickEvent) {
     }
 }
 
-function addCardButtonHandler(clickEvent){
+async function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
-    dataHandler.createNewCard("newCard", boardId).then(res => {
-        domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,cardBuilder(res));
-        domManager.addEventListener(
-                `[data-card-id-remove="${res.id}"]`,
-                "click",
-                deleteCardButtonHandler
-            );
-    });
+    const newCard = await dataHandler.createNewCard("newCard", boardId);
+    domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,cardBuilder(newCard));
+    const newCardDeleteButton = document.querySelector(`[data-card-id-remove="${newCard.id}"]`)
+    domManager.addEventListener(
+            `[data-card-id-remove="${newCard.id}"]`,
+            "click",
+            deleteCardButtonHandler
+            )
 }
 
 
