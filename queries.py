@@ -105,7 +105,8 @@ def add_card(board_id):
     return data_manager.execute_select(statement="""
         INSERT INTO cards(board_id, status_id, title, card_order)
         VALUES('%(board_id)s',
-               '1',
+               (SELECT min(status_id) from cards
+        WHERE board_id = %(board_id)s),
                'New Card',
                %(new_order)s)
         RETURNING *;

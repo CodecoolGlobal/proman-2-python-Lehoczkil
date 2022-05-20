@@ -77,7 +77,9 @@ def delete_board(board_id):
 @app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])
 @json_response
 def add_card(board_id):
-    return queries.add_card(board_id)
+    card = queries.add_card(board_id)
+    print(card)
+    return card
 
 
 def main():
