@@ -74,6 +74,12 @@ def delete_board(board_id):
     return ""
 
 
+@app.route("/api/statuses/<int:status_id>/delete/", methods=["DELETE"])
+def delete_column(status_id):
+    queries.delete_status(status_id)
+    return ""
+
+
 @app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])
 @json_response
 def add_card(board_id):

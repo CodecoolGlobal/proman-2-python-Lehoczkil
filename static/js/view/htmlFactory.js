@@ -24,8 +24,9 @@ export function addCardButtonBuilder(boardId) {
 
 
 export function newColumnBuilder(boardID, column) {
+    console.log(column)
     return `<div class="board-column">
-                <div class="board-column-title">${column.title}</div>
+                <div class="board-column-title">${column.title}<i class="fas fa-trash-alt remove-column" data-status-id-remove="${column.id}"></i></div>
                 <div class="board-column-content" data-status-id="${column.id}" data-board-id=${boardID}></div>
             </div>`
 }
@@ -37,7 +38,7 @@ export async function columnsBuilder(boardID) {
     let columnsContent = ``;
     columns.forEach((column) => {
         columnsContent += `<div class="board-column">
-                               <div class="board-column-title">${column.title}</div>
+                               <div class="board-column-title">${column.title}<i class="fas fa-trash-alt remove-column" data-status-id-remove="${column.id}"></i></div>
                                <div class="board-column-content" data-status-id="${column.id}" data-board-id=${column.board_id}></div>
                            </div>`
     });

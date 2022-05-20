@@ -94,6 +94,14 @@ def delete_board(board_id):
         """, {"board_id": board_id})
 
 
+def delete_status(status_id):
+    data_manager.execute_delete("""
+        DELETE FROM statuses
+        WHERE id = %(status_id)s
+        ;
+        """, {"status_id": status_id})
+
+
 def add_card(board_id):
     max_order = data_manager.execute_select(
         """
