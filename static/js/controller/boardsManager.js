@@ -16,6 +16,8 @@ export let boardsManager = {
             const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${board.id}"]`);
             deleteBoardButton.addEventListener("click",deleteBoardButtonHandler)
             showHideButton.addEventListener("click",showHideButtonHandler)
+            const boardTitle = document.querySelector(`.board-title[data-board-id="${board.id}"]`)
+            boardTitle.addEventListener('keydown', updateTitle)
         }
     },
     addNewBoardHandler: addNewBoardHandler
@@ -80,7 +82,6 @@ export function addNewBoardHandler() {
             const deleteBoardButton = document.querySelector(`.board-remove[data-board-id-remove="${response.id}"]`);
             deleteBoardButton.addEventListener("click", deleteBoardButtonHandler);
             showHideButton.addEventListener("click", showHideButtonHandler);
-
         }
     });
 }
@@ -108,4 +109,14 @@ export function addColumnHandler(event) {
 function deleteColumnHandler(event){
     dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
     event.target.parentElement.parentElement.remove()
+}
+
+
+function updateTitle(clickEvent) {
+    if (clickEvent.key === "Enter") {
+        let value = clickEvent.currentTarget.value
+        let boardId = clickEvent.currentTarget.dataset.boardId
+        clickEvent.currentTarget.blur()
+        dataHandler.renameBoardTitle(boardId, value)
+    }
 }

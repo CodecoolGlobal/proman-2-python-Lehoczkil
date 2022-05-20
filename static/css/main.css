@@ -171,3 +171,18 @@ i.fas.fa-trash-alt.remove-column {
 .add-column-button {
     display: none;
 }
+
+.borderless-input {
+    border-style: none;
+    background: none;
+    resize: horizontal;
+    width: 100px;
+}
+
+.board-title.borderless-input {
+    font-size: x-large;
+}
+
+.card-title.borderless-input {
+    color: white;
+}

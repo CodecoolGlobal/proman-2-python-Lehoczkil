@@ -100,10 +100,18 @@ def get_board_by_id(board_id):
     return queries.get_board(board_id)
 
 
-@app.route("/api/boards/<int:board_id>/update_title/<new_title>", methods=['POST'])
-def update_board_title(board_id: int, new_title):
-    queries.update_board_title(board_id, new_title)
-    return render_template(url_for('index'))
+@app.route("/api/boards/<int:board_id>/update_board_title", methods=['POST'])
+def update_board_title(board_id: int):
+    response = request.get_json()
+    queries.update_board_title(board_id, response.get("title"))
+    return response
+
+
+@app.route("/api/cards/<int:card_id>/update_card_title", methods=['POST'])
+def update_card_title(card_id: int):
+    response = request.get_json()
+    queries.update_card_title(card_id, response.get("title"))
+    return response
 
 
 def main():
