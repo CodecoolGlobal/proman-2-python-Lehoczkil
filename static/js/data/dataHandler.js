@@ -16,29 +16,42 @@ export let dataHandler = {
     },
     getCard: async function (cardId) {
         // the card is retrieved and then the callback function is called with the card
-        return await apiGet(`/api/cards/${cardId}`)
     },
+    getColumnsByBoardId: async function (boardId) {
+        return apiGet(`/api/columns/${boardId}`);
+    },
+    createNewColumn: async function (columnStatus, boardId) {
+        return apiPost(
+            `/api/board/new_column`,
+            {'column_status': columnStatus,
+                      'board_id': boardId
+            }
+        )
+    },
+
     createNewBoard: async function (boardTitle) {
         return apiPost(
             '/api/new_board',
             {'title': boardTitle}
         );
     },
-    createNewCard: async function (cardTitle, boardId, statusId) {
+    createNewCard: async function (cardTitle, boardId) {
         return await apiPost(`/api/boards/${boardId}/cards/add`,
             {
                 "title": cardTitle,
-                "board_id": boardId,
-                "status_id": statusId
+                "board_id": boardId
             })
         // creates new card, saves it and calls the callback function with its data
     },
-    renameBoardTitle: async  function (boardId, newTitle) {
-        return await apiPost(`/api/boards/${boardId}/update_title`, newTitle)
-    },
     deleteCard: async function (cardId) {
         await apiDelete(`/api/cards/${cardId}/delete/`)
-
+    },
+    deleteBoard: async function (boardId) {
+        await apiDelete(`/api/boards/${boardId}/delete/`)
+    },
+    deleteStatus: async function (statusId) {
+        await apiDelete(`/api/statuses/${statusId}/delete/`)
+    }
 };
 
 async function apiGet(url) {

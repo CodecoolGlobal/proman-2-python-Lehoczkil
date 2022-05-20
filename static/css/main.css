@@ -114,6 +114,11 @@ section.board{
     background: var(--status-4);
 }
 
+.board-remove{
+    cursor: pointer;
+    margin-right: 1em;
+}
+
 .card-remove{
     display: block;
     position: absolute;
@@ -123,12 +128,19 @@ section.board{
     cursor: pointer;
 }
 
-i.fas.fa-trash-alt.remove {
+i.fas.fa-trash-alt.remove-card {
     position: relative;
     top: 4px;
     font-size: 12px;
     cursor: pointer;
     float: right;
+}
+
+i.fas.fa-trash-alt.remove-column {
+    position: relative;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 1em;
 }
 
 .card-title{
@@ -154,4 +166,8 @@ i.fas.fa-trash-alt.remove {
 
 .new-board-modal {
     display: flex;
+}
+
+.add-column-button {
+    display: none;
 }
