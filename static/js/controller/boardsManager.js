@@ -46,11 +46,8 @@ async function showHideButtonHandler(clickEvent) {
 
 function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
-    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res})
-    let card
-    dataHandler.createNewCard("newCard", boardId,"1").then(res => {
-        card = cardBuilder(res);
-        domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,card);
+    dataHandler.createNewCard("newCard", boardId).then(res => {
+        domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,cardBuilder(res));
         domManager.addEventListener(
                 `[data-card-id-remove="${res.id}"]`,
                 "click",
