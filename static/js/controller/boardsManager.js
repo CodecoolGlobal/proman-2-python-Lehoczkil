@@ -97,7 +97,10 @@ export function addColumnHandler(event) {
                     const response = await dataHandler.createNewColumn(columnStatus, boardID);
                     const newColumn = newColumnBuilder(boardID, response);
                     saveChangesButton.removeEventListener('click', saveChangesButton.handler);
-                    domManager.addChild(`.board-columns[data-board-id="${boardID}"]`, newColumn)
+                    domManager.addChild(`.board-columns[data-board-id="${boardID}"]`, newColumn);
+                    const deleteColumnButton = document.querySelector(`.fas.fa-trash-alt.remove-column[data-status-id-remove="${response.id}"]`);
+                    deleteColumnButton.addEventListener("click", deleteColumnHandler);
+
         }
     });
 }
