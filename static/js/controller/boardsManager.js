@@ -39,6 +39,8 @@ async function showHideButtonHandler(clickEvent) {
         domManager.addChild(`.board-header[data-board-id="${boardId}"]`, addCardButton);
         addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
         addCardButton.addEventListener("click",addCardButtonHandler);
+        const deleteColumButtons = document.querySelectorAll(".fas.fa-trash-alt.remove-column")
+        deleteColumButtons.forEach(button => {button.addEventListener("click", deleteColumnHandler)})
         await cardsManager.loadCards(boardId);
         addColumnButton.style.display = 'inline';
     }
@@ -98,4 +100,9 @@ export function addColumnHandler(event) {
                     domManager.addChild(`.board-columns[data-board-id="${boardID}"]`, newColumn)
         }
     });
+}
+
+function deleteColumnHandler(event){
+    dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
+    event.target.parentElement.parentElement.remove()
 }

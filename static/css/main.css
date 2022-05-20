@@ -136,6 +136,13 @@ i.fas.fa-trash-alt.remove-card {
     float: right;
 }
 
+i.fas.fa-trash-alt.remove-column {
+    position: relative;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
 .card-title{
     padding-right: 16px;
     margin-bottom: 0;

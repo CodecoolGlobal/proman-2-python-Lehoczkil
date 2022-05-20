@@ -6,7 +6,6 @@ export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
-            console.log(card)
             const content = cardBuilder(card);
             await domManager.addChild(`.board-column-content[data-status-id="${card.status_id}"][data-board-id="${boardId}"]`, content);
             domManager.addEventListener(
@@ -27,7 +26,6 @@ export function deleteCardButtonHandler(clickEvent) {
 export function deleteBoardButtonHandler(clickEvent) {
     const board = (clickEvent.target.parentElement.parentElement.parentElement);
     const boardId = board.dataset.boardId
-    console.log(board)
     dataHandler.deleteBoard(boardId)
     board.remove()
 }
