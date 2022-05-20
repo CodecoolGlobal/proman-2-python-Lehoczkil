@@ -160,3 +160,7 @@ i.fas.fa-trash-alt.remove-card {
 .new-board-modal {
     display: flex;
 }
+
+.add-column-button {
+    display: none;
+}

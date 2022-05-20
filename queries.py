@@ -48,6 +48,26 @@ def add_new_board(board_title):
         """, {"board_title": board_title}, fetchall=False)
 
 
+def add_new_column(column_status, board_id):
+    return data_manager.execute_select(
+        """
+        INSERT INTO statuses
+        (title, board_id)
+        VALUES (%(column_status)s, %(board_id)s)
+        RETURNING *
+        ;
+        """
+        , {"column_status": column_status,
+           "board_id": board_id}, fetchall=False)
+
+
+def create_default_columns(board_id):
+    add_new_column("new", board_id)
+    add_new_column("planning", board_id)
+    add_new_column("in progress", board_id)
+    add_new_column("done", board_id)
+
+
 def get_cards_for_status(status_id):
     matching_cards = data_manager.execute_select("""
         SELECT * FROM cards
@@ -75,12 +95,31 @@ def delete_board(board_id):
 
 
 def add_card(board_id):
+    max_order = data_manager.execute_select(
+        """
+        SELECT max(card_order) from cards
+        WHERE board_id = %(board_id)s
+        """, {"board_id": board_id}, False
+    )
+    new_order = max_order['max'] + 1 if max_order['max'] is not None else 1
     return data_manager.execute_select(statement="""
         INSERT INTO cards(board_id, status_id, title, card_order)
         VALUES('%(board_id)s',
-               '1',
+               (SELECT min(id) from statuses
+        WHERE board_id = %(board_id)s),
                'New Card',
-               (SELECT max(card_order)+1 from cards
-        WHERE board_id = %(board_id)s))
+               %(new_order)s)
         RETURNING *;
-        """, variables={"board_id": board_id}, fetchall=False)
+        """, variables={"board_id": board_id, "new_order": new_order}, fetchall=False)
+
+
+def get_columns_by_board_id(board_id):
+    columns = data_manager.execute_select(
+        """
+        SELECT * FROM statuses s
+        WHERE s.board_id = %(board_id)s
+        ;
+        """
+        , {"board_id": board_id})
+
+    return columns

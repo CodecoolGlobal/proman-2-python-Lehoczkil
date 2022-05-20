@@ -17,18 +17,29 @@ export let dataHandler = {
     getCard: async function (cardId) {
         // the card is retrieved and then the callback function is called with the card
     },
+    getColumnsByBoardId: async function (boardId) {
+        return apiGet(`/api/columns/${boardId}`);
+    },
+    createNewColumn: async function (columnStatus, boardId) {
+        return apiPost(
+            `/api/board/new_column`,
+            {'column_status': columnStatus,
+                      'board_id': boardId
+            }
+        )
+    },
+
     createNewBoard: async function (boardTitle) {
         return apiPost(
             '/api/new_board',
             {'title': boardTitle}
         );
     },
-    createNewCard: async function (cardTitle, boardId, statusId) {
+    createNewCard: async function (cardTitle, boardId) {
         return await apiPost(`/api/boards/${boardId}/cards/add`,
             {
                 "title": cardTitle,
-                "board_id": boardId,
-                "status_id": statusId
+                "board_id": boardId
             })
         // creates new card, saves it and calls the callback function with its data
     },
