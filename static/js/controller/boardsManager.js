@@ -100,7 +100,7 @@ export function addColumnHandler(event) {
                     const response = await dataHandler.createNewColumn(columnStatus, boardID);
                     const newColumn = newColumnBuilder(boardID, response);
                     saveChangesButton.removeEventListener('click', saveChangesButton.handler);
-                    domManager.addChild('.board-columns', newColumn)
+                    domManager.addChild(`.board-columns[data-board-id="${boardID}"]`, newColumn)
         }
     });
 }

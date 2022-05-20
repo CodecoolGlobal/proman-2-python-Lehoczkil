@@ -34,17 +34,13 @@ export function newColumnBuilder(boardID, column) {
 export async function columnsBuilder(boardID) {
 
     let columns = await dataHandler.getColumnsByBoardId(boardID);
-
-    console.log(columns);
     let columnsContent = ``;
-
     columns.forEach((column) => {
         columnsContent += `<div class="board-column">
                                <div class="board-column-title">${column.title}</div>
                                <div class="board-column-content" data-status-id="${column.id}" data-board-id=${column.board_id}></div>
                            </div>`
     });
-    console.log(columnsContent)
     return `<div class="board-columns" data-board-id=${boardID}>
                 ${columnsContent}
             </div>`;
