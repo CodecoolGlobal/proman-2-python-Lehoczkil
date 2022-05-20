@@ -23,6 +23,7 @@ def get_boards():
     """
     return data_manager.execute_select("""
         SELECT * FROM boards
+        Order By id
         ;
         """)
 
@@ -72,7 +73,7 @@ def get_cards_for_status(status_id):
     matching_cards = data_manager.execute_select("""
         SELECT * FROM cards
         WHERE cards.status_id = %(status_id)s
-        ;
+        ORDER BY cards.id;
         """, {"status_id": status_id})
 
     return matching_cards
@@ -131,3 +132,21 @@ def get_columns_by_board_id(board_id):
         , {"board_id": board_id})
 
     return columns
+
+
+def update_board_title(board_id, new_title):
+    return data_manager.execute_update(
+        """
+        UPDATE boards SET title = %(new_title)s
+        WHERE id = %(board_id)s;""",
+        {"board_id": board_id, "new_title": new_title}
+    )
+
+
+def update_card_title(card_id, new_title):
+    return data_manager.execute_update(
+        """
+        UPDATE cards SET title = %(new_title)s
+        WHERE id = %(card_id)s;""",
+        {"card_id": card_id, "new_title": new_title}
+    )

@@ -13,6 +13,8 @@ export let cardsManager = {
                 "click",
                 deleteCardButtonHandler
             );
+            const cardTitle = document.querySelector(`.card-title[data-card-id="${card.id}"]`);
+            cardTitle.addEventListener('keydown', updateTitle);
         }
     },
 };
@@ -28,4 +30,14 @@ export function deleteBoardButtonHandler(clickEvent) {
     const boardId = board.dataset.boardId
     dataHandler.deleteBoard(boardId)
     board.remove()
+}
+
+
+function updateTitle(clickEvent) {
+    if (clickEvent.key === "Enter") {
+        let value = clickEvent.currentTarget.value
+        let cardId = clickEvent.currentTarget.dataset.cardId
+        clickEvent.currentTarget.blur()
+        dataHandler.renameCardTitle(cardId, value)
+    }
 }

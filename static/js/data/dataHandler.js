@@ -43,6 +43,18 @@ export let dataHandler = {
             })
         // creates new card, saves it and calls the callback function with its data
     },
+    renameBoardTitle: async  function (boardId, newTitle) {
+        return await apiPost(
+            `/api/boards/${boardId}/update_board_title`,
+            {'title': newTitle}
+        );
+    },
+    renameCardTitle: async  function (cardId, newTitle) {
+        return await apiPost(
+            `/api/cards/${cardId}/update_card_title`,
+            {'title': newTitle}
+        );
+    },
     deleteCard: async function (cardId) {
         await apiDelete(`/api/cards/${cardId}/delete/`)
     },
