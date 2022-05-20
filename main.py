@@ -42,6 +42,7 @@ def get_cards_for_board(board_id: int):
 def add_new_board():
     board_title = request.json.get('title')
     response = queries.add_new_board(board_title)
+    queries.create_default_columns(response["id"])
     return response
 
 

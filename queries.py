@@ -61,6 +61,13 @@ def add_new_column(column_status, board_id):
            "board_id": board_id}, fetchall=False)
 
 
+def create_default_columns(board_id):
+    add_new_column("new", board_id)
+    add_new_column("planning", board_id)
+    add_new_column("in progress", board_id)
+    add_new_column("done", board_id)
+
+
 def get_cards_for_status(status_id):
     matching_cards = data_manager.execute_select("""
         SELECT * FROM cards
