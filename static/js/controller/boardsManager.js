@@ -25,6 +25,7 @@ async function showHideButtonHandler(clickEvent) {
     const board = clickEvent.currentTarget.parentElement.parentElement;
     const boardId = board.dataset.boardId;
     const addColumnButton = document.querySelector(`.add-column-button[data-board-id="${boardId}"]`);
+    addColumnButton.addEventListener("click",addColumnHandler);
     let columns = document.querySelector(`.board-columns[data-board-id="${boardId}"]`);
     let addCardButton = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
     if(board.childElementCount>1){
@@ -45,10 +46,7 @@ async function showHideButtonHandler(clickEvent) {
 
 function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
-    const column = document.querySelector(`.board-column-content[data-board-id="${boardId}"]`)
-    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res;
-    console.log(newCard)})
-    console.log(column)
+    dataHandler.createNewCard("newCard", boardId,"1").then(res => {const newCard = res})
     let card
     dataHandler.createNewCard("newCard", boardId,"1").then(res => {
         card = cardBuilder(res);

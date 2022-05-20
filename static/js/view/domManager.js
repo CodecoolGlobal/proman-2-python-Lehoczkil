@@ -5,6 +5,7 @@ export let domManager = {
             parent.insertAdjacentHTML("beforeend", childContent);
         } else {
             console.error("could not find such html element: " + parentIdentifier);
+            console.error("stuff: " + childContent)
         }
     },
     addEventListener(parentIdentifier, eventType, eventHandler) {

@@ -95,15 +95,21 @@ def delete_board(board_id):
 
 
 def add_card(board_id):
+    max_order = data_manager.execute_select(
+        """
+        SELECT max(card_order) from cards
+        WHERE board_id = %(board_id)s
+        """, {"board_id": board_id}, False
+    )
+    new_order = max_order.get('max', 0) + 1
     return data_manager.execute_select(statement="""
         INSERT INTO cards(board_id, status_id, title, card_order)
         VALUES('%(board_id)s',
                '1',
                'New Card',
-               (SELECT max(card_order)+1 from cards
-        WHERE board_id = %(board_id)s))
+               %(new_order)s)
         RETURNING *;
-        """, variables={"board_id": board_id}, fetchall=False)
+        """, variables={"board_id": board_id, "new_order": new_order}, fetchall=False)
 
 
 def get_columns_by_board_id(board_id):
