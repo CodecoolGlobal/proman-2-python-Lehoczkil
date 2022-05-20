@@ -78,7 +78,6 @@ def delete_board(board_id):
 @json_response
 def add_card(board_id):
     card = queries.add_card(board_id)
-    print(card)
     return card
 
 

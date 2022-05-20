@@ -101,11 +101,11 @@ def add_card(board_id):
         WHERE board_id = %(board_id)s
         """, {"board_id": board_id}, False
     )
-    new_order = max_order.get('max', 0) + 1
+    new_order = max_order['max'] + 1 if max_order['max'] is not None else 1
     return data_manager.execute_select(statement="""
         INSERT INTO cards(board_id, status_id, title, card_order)
         VALUES('%(board_id)s',
-               (SELECT min(status_id) from cards
+               (SELECT min(id) from statuses
         WHERE board_id = %(board_id)s),
                'New Card',
                %(new_order)s)
