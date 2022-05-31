@@ -150,3 +150,17 @@ def update_card_title(card_id, new_title):
         WHERE id = %(card_id)s;""",
         {"card_id": card_id, "new_title": new_title}
     )
+
+
+def update_card_status(new_status_id, card_id):
+    return data_manager.execute_update(
+        '''
+        UPDATE cards
+        SET status_id = %(new_status_id)s
+        WHERE id = %(card_id)s;
+        ''',
+        {
+            'new_status_id': new_status_id,
+            'card_id': card_id
+        }
+    )

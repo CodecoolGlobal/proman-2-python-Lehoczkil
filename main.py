@@ -114,6 +114,14 @@ def update_card_title(card_id: int):
     return response
 
 
+@app.route('/api/update_card_status', methods=['PUT'])
+def update_card_status():
+    new_status_id = request.json.get('newCardStatus')
+    card_id = request.json.get('cardId')
+    queries.update_card_status(new_status_id, card_id)
+    return ''
+    
+
 def main():
     app.run(debug=True)
 

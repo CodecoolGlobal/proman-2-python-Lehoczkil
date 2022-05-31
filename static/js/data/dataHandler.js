@@ -63,6 +63,15 @@ export let dataHandler = {
     },
     deleteStatus: async function (statusId) {
         await apiDelete(`/api/statuses/${statusId}/delete/`)
+    },
+    updateStatus: function(newCardStatus, cardId) {
+        apiPut(
+            '/api/update_card_status',
+            {
+                'newCardStatus': newCardStatus,
+                'cardId': cardId
+            }
+            );
     }
 };
 
@@ -92,7 +101,15 @@ async function apiDelete(url) {
         });
     }
 
-async function apiPut(url) {
+async function apiPut(url, payload) {
+    console.log(url, payload);
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
 }
 
 async function apiPatch(url) {
