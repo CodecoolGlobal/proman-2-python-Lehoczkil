@@ -1,14 +1,18 @@
 :root{
-    --border-radius: 3px;
-    --status-1: #590000;
-    --status-2: #594300;
-    --status-3: #525900;
-    --status-4: #085900;
+    --border-radius: 10px;
+    --status-1: #bc3908;
+    --status-2: #7f3246;
+    --status-3: #3a0ca3;
+    --status-4: #00296b;
+    --grey: #212529;
+    --blue: #90e0ef;
+    --purple: #e7c6ff;
 }
 
 body{
     min-width: 620px;
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    background: url('/static/design-materials/background.jpg');
+    background-size: cover;
     font-family: sans-serif;
     font-size: clamp(12px, 1vw, 30px);
 }
@@ -28,25 +32,26 @@ button{
     background: #222;
     color: #fff;
     border: none;
+    border-radius: 5px;
     font-family: sans-serif;
     padding: 4px 10px;
 }
 
 .board-container{
-    max-width: 960px;
     margin: 0 auto;
+    width: 70%;
 }
 
 section.board{
     margin: 20px;
     border: aliceblue;
-    background: #ffffff90;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
+    background: #90e0ef90;
 }
 
 .board-header{
     height: 50px;
-    background: #fff;
+    background: var(--purple);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
@@ -149,19 +154,44 @@ i.fas.fa-trash-alt.remove-column {
 }
 
 .main-title {
-    font-size: clamp(20px, 3vw, 100px);
-    margin: auto 35%;
+    font-size: clamp(20px, 4vw, 100px);
+    font-weight: 600;
+    margin: auto 28%;
+    color: white;
+}
+
+.modal-dialog {
+    width: 180%;
+}
+
+.modal-content {
+    background: var(--purple);
+}
+
+.modal-body input {
+    border-color: var(--grey);
+    margin: 10vh auto;
+    width: 70%;
 }
 
 .new-board-button {
+    background: var(--grey);
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: clamp(20px, 1.5vw, 100px);
     margin-left: 2vw;
     margin-top: 2vh;
     margin-bottom: 2vh;
+    padding: 0.5vh 1.2vw;
+}
+
+.new-board-button:hover {
+    color: var(--blue) ;
 }
 
 .title-container{
     display: flex;
-    margin:  2.5vh auto;
+    margin:  2.5vh auto 10%;
 }
 
 .new-board-modal {

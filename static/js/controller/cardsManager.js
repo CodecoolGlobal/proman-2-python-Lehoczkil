@@ -44,11 +44,13 @@ export let cardsManager = {
     }
 };
 
+
 export function deleteCardButtonHandler(clickEvent) {
     const cardId = (clickEvent.target.parentElement.parentElement.dataset.cardId);
     dataHandler.deleteCard(cardId)
     clickEvent.target.parentElement.parentElement.remove()
 }
+
 
 export function deleteBoardButtonHandler(clickEvent) {
     const board = (clickEvent.target.parentElement.parentElement.parentElement);
