@@ -45,25 +45,3 @@ export async function columnsBuilder(boardID) {
                 ${columnsContent}
             </div>`;
 }
-
-
-    /*
-    return `<div class="board-columns" data-board-id=${boardID}>
-                    <div class="board-column">
-                        <div class="board-column-title">New</div>
-                        <div class="board-column-content" data-status-id="1" data-board-id=${boardID}></div>
-                    </div>
-                    <div class="board-column">
-                        <div class="board-column-title">In Progress</div>
-                        <div class="board-column-content" data-status-id="2" data-board-id=${boardID}></div>
-                    </div>
-                    <div class="board-column">
-                        <div class="board-column-title">Testing</div>
-                        <div class="board-column-content" data-status-id="3" data-board-id=${boardID}></div>
-                    </div>
-                    <div class="board-column">
-                        <div class="board-column-title">Done</div>
-                        <div class="board-column-content" data-status-id="4" data-board-id=${boardID}></div>
-                    </div>
-                </div>`
-}*/

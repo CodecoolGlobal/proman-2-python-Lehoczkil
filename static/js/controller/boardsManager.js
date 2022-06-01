@@ -52,7 +52,6 @@ async function addCardButtonHandler(clickEvent){
     const boardId = clickEvent.target.dataset.boardId
     const newCard = await dataHandler.createNewCard("newCard", boardId);
     domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`,cardBuilder(newCard));
-    const newCardDeleteButton = document.querySelector(`[data-card-id-remove="${newCard.id}"]`)
     domManager.addEventListener(
             `[data-card-id-remove="${newCard.id}"]`,
             "click",
@@ -88,7 +87,6 @@ export function addNewBoardHandler() {
 
 export function addColumnHandler(event) {
     const boardID = event.currentTarget.dataset.boardId;
-    const addColumnButton = document.querySelector('.add-column-button');
     document.querySelector('.modal.add-column-modal').classList.add('new-board-modal');
     const saveChangesButton = document.querySelector('#save-status-button')
             saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
@@ -105,6 +103,16 @@ export function addColumnHandler(event) {
         }
     });
 }
+
+
+export function registerHandler() {
+    document.querySelector('.modal.register-modal').classList.add('new-board-modal');
+    const saveChangesButton = document.querySelector('#save-user-button')
+            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
+                document.querySelector('.modal.register-modal').classList.remove('new-board-modal');
+    });
+}
+
 
 function deleteColumnHandler(event){
     dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
