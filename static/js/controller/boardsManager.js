@@ -88,6 +88,10 @@ export function addNewBoardHandler() {
 export function addColumnHandler(event) {
     const boardID = event.currentTarget.dataset.boardId;
     document.querySelector('.modal.add-column-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.add-column-modal').classList.remove('new-board-modal');
+    }));
     const saveChangesButton = document.querySelector('#save-status-button')
             saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
                 document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
@@ -107,6 +111,10 @@ export function addColumnHandler(event) {
 
 export function registerHandler() {
     document.querySelector('.modal.register-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.register-modal').classList.remove('new-board-modal');
+    }));
     const saveChangesButton = document.querySelector('#save-user-button')
             saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
                 document.querySelector('.modal.register-modal').classList.remove('new-board-modal');
@@ -116,6 +124,10 @@ export function registerHandler() {
 
 export function loginHandler() {
     document.querySelector('.modal.login-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.login-modal').classList.remove('new-board-modal');
+    }));
     const saveChangesButton = document.querySelector('#enter-user-button')
             saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
                 document.querySelector('.modal.login-modal').classList.remove('new-board-modal');
