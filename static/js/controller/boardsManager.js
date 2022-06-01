@@ -114,6 +114,15 @@ export function registerHandler() {
 }
 
 
+export function loginHandler() {
+    document.querySelector('.modal.login-modal').classList.add('new-board-modal');
+    const saveChangesButton = document.querySelector('#enter-user-button')
+            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
+                document.querySelector('.modal.login-modal').classList.remove('new-board-modal');
+    });
+}
+
+
 function deleteColumnHandler(event){
     dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
     event.target.parentElement.parentElement.remove()
