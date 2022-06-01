@@ -12,35 +12,35 @@ export let cardsManager = {
             const cardTitle = document.querySelector(`.card-title[data-card-id="${card.id}"]`);
             cardTitle.addEventListener('keydown', updateTitle);
         }
-        const allCards = document.querySelectorAll('.card')
-        const cols = document.querySelectorAll('.board-column-content');
-
-        allCards.forEach(card => {
-            card.setAttribute('draggable', true);
-            card.addEventListener('dragstart', () => {
-                card.classList.add('dragging');
-            });
-
-            card.addEventListener('dragend', () => {
-                    card.classList.remove('dragging')
-            });
-        });
-
-        cols.forEach(col => {
-            col.addEventListener('dragover', e => {
-                e.preventDefault();
-            });
-
-            col.addEventListener('drop', () => {
-                const card = document.querySelector('.dragging');
-                if (boardId === card.dataset.boardId) {
-                    col.append(card);
-                    const newStatusId = card.parentElement.dataset.statusId;
-                    updateCardStatus(newStatusId, card.dataset.cardId);
-                }
-                else console.log('no, not in here')
-            })
-        });
+        // const allCards = document.querySelectorAll('.card')
+        // const cols = document.querySelectorAll('.board-column-content');
+        //
+        // allCards.forEach(card => {
+        //     card.setAttribute('draggable', true);
+        //     card.addEventListener('dragstart', () => {
+        //         card.classList.add('dragging');
+        //     });
+        //
+        //     card.addEventListener('dragend', () => {
+        //             card.classList.remove('dragging')
+        //     });
+        // });
+        //
+        // cols.forEach(col => {
+        //     col.addEventListener('dragover', e => {
+        //         e.preventDefault();
+        //     });
+        //
+        //     col.addEventListener('drop', () => {
+        //         const card = document.querySelector('.dragging');
+        //         if (boardId === card.dataset.boardId) {
+        //             col.append(card);
+        //             const newStatusId = card.parentElement.dataset.statusId;
+        //             updateCardStatus(newStatusId, card.dataset.cardId);
+        //         }
+        //         else console.log('no, not in here')
+        //     })
+        // });
     }
 };
 

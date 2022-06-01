@@ -216,3 +216,20 @@ i.fas.fa-trash-alt.remove-column {
 .card-title.borderless-input {
     color: white;
 }
+
+.dropzone-column,
+.dropzone-column:empty{
+    /*border: 4px solid #fad28b;*/
+    border-radius: 10px;
+    background-color: #c4fa8b;
+}
+
+.dropzone-column{
+    padding-bottom: 2em;
+}
+
+.active {
+    border: 4px solid #ffa5a5;
+}
+
+.hint * {pointer-events: none}
