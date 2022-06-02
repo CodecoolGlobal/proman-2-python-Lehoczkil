@@ -178,6 +178,7 @@ async function addCardButtonHandler(clickEvent) {
         "click",
         deleteCardButtonHandler
     )
+    initDragAndDrop();
 }
 
 
@@ -224,12 +225,10 @@ export function addColumnHandler(event) {
             domManager.addChild(`.board-columns[data-board-id="${boardID}"]`, newColumn);
             const deleteColumnButton = document.querySelector(`.fas.fa-trash-alt.remove-column[data-status-id-remove="${response.id}"]`);
             deleteColumnButton.addEventListener("click", deleteColumnHandler);
-
         }
+        initDragAndDrop();
     });
 }
-
-function deleteColumnHandler(event) {
 
 export function registerHandler() {
     document.querySelector('.modal.register-modal').classList.add('new-board-modal');
@@ -238,8 +237,8 @@ export function registerHandler() {
         document.querySelector('.register-modal').classList.remove('new-board-modal');
     }));
     const saveChangesButton = document.querySelector('#save-user-button')
-            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
-                document.querySelector('.modal.register-modal').classList.remove('new-board-modal');
+    saveChangesButton.addEventListener('click', saveChangesButton.handler = async () => {
+        document.querySelector('.modal.register-modal').classList.remove('new-board-modal');
     });
 }
 
@@ -251,13 +250,13 @@ export function loginHandler() {
         document.querySelector('.login-modal').classList.remove('new-board-modal');
     }));
     const saveChangesButton = document.querySelector('#enter-user-button')
-            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
-                document.querySelector('.modal.login-modal').classList.remove('new-board-modal');
+    saveChangesButton.addEventListener('click', saveChangesButton.handler = async () => {
+        document.querySelector('.modal.login-modal').classList.remove('new-board-modal');
     });
 }
 
 
-function deleteColumnHandler(event){
+function deleteColumnHandler(event) {
     dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
     event.target.parentElement.parentElement.remove()
 }
