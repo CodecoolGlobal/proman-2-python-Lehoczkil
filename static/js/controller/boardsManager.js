@@ -65,7 +65,9 @@ function initDragAndDrop() {
         card.draggable = true
         card.ondragstart = (e) => {
             currentDrag = card
-            for (let card of cards) {card.classList.add('hint')}
+            for (let card of cards) {
+                card.classList.add('hint')
+            }
             // console.log(card)
             for (let column of columns) {
                 if (column.dataset.boardId === card.dataset.boardId) {
@@ -74,9 +76,9 @@ function initDragAndDrop() {
             }
         };
         card.ondragenter = (e) => {
-            // console.log(currentDrag)
-            // console.log(card)
-            if (currentDrag !== card && currentDrag.dataset.boardId === card.dataset.boardId) {
+            if (currentDrag !== card &&
+                (parseInt(currentDrag.dataset.cardOrder) !== card.dataset.cardOrder - 1 || currentDrag.dataset.cardStatusId !== card.dataset.cardStatusId) &&
+                currentDrag.dataset.boardId === card.dataset.boardId) {
                 card.classList.add('active')
             }
         };
@@ -98,18 +100,31 @@ function initDragAndDrop() {
         }
         card.ondrop = (e) => {
             e.preventDefault();
-            if (card !== currentDrag){
-                if(card.dataset.boardId === currentDrag.dataset.boardId) {
+            if (card !== currentDrag) {
+                if (card.dataset.boardId === currentDrag.dataset.boardId) {
+                    let switchNum
                     let currentColumn = currentDrag.parentElement
                     let targetColumn = card.parentElement
-                    console.log(currentColumn)
-                    console.log(targetColumn)
                     if (card.dataset.cardStatusId !== currentDrag.dataset.cardStatusId) {
                         console.log('status changed, rearrange two col')
+                        switchNum = 2
                     } else {
                         console.log('status remains, rearrange one col')
+                        switchNum = 1
                     }
-                    targetColumn.insertBefore(currentDrag,card)
+                    targetColumn.insertBefore(currentDrag, card)
+                    switch (switchNum) {
+                        case 1:
+                            let rearrangeList = targetColumn.children
+                            console.log(rearrangeList)
+                            for (let i = 0; i < rearrangeList.length; i++) {
+                                console.log(rearrangeList[i])
+                                dataHandler.updateCardOrder(i,rearrangeList[i].dataset.cardId)
+                            }
+                            break;
+                        case 2:
+                            console.log('not yet')
+                    }
                 } else {
                     console.log('drop on card in different board is not allowed')
                 }
@@ -118,14 +133,14 @@ function initDragAndDrop() {
             }
         }
     }
-    for(let column of columns){
+    for (let column of columns) {
         column.ondragover = (e) => {
             e.preventDefault()
         }
         column.ondrop = (e) => {
-            if(e.target === column) {
+            if (e.target === column) {
                 if (currentDrag.dataset.boardId === column.dataset.boardId) {
-                    if(currentDrag.dataset.cardStatusId === column.dataset.statusId) {
+                    if (currentDrag.dataset.cardStatusId === column.dataset.statusId) {
                         column.append(currentDrag)
                         console.log('status not changed, insert as last')
                     } else {

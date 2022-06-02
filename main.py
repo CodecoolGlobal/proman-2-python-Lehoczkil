@@ -120,7 +120,15 @@ def update_card_status():
     card_id = request.json.get('cardId')
     queries.update_card_status(new_status_id, card_id)
     return ''
-    
+
+
+@app.route('/api/update_card_order', methods=['PUT'])
+def update_card_order():
+    new_card_order = request.json.get('newCardOrder')
+    card_id = request.json.get('cardId')
+    queries.update_card_order(new_card_order, card_id)
+    return ''
+
 
 def main():
     app.run(debug=True)
