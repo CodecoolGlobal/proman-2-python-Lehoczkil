@@ -115,15 +115,14 @@ function initDragAndDrop() {
                     targetColumn.insertBefore(currentDrag, card)
                     switch (switchNum) {
                         case 1:
-                            let rearrangeList = targetColumn.children
-                            console.log(rearrangeList)
-                            for (let i = 0; i < rearrangeList.length; i++) {
-                                console.log(rearrangeList[i])
-                                dataHandler.updateCardOrder(i,rearrangeList[i].dataset.cardId)
-                            }
+                            rearrangeCardOrders(targetColumn.children)
                             break;
                         case 2:
-                            console.log('not yet')
+                            console.log(card.dataset.cardStatusId)
+                            console.log(currentDrag.dataset.cardId)
+                            dataHandler.updateStatus(card.dataset.cardStatusId, currentDrag.dataset.cardId)
+                            rearrangeCardOrders(currentColumn.children)
+                            rearrangeCardOrders(targetColumn.children)
                     }
                 } else {
                     console.log('drop on card in different board is not allowed')
@@ -228,5 +227,12 @@ function updateTitle(clickEvent) {
         let boardId = clickEvent.currentTarget.dataset.boardId
         clickEvent.currentTarget.blur()
         dataHandler.renameBoardTitle(boardId, value)
+    }
+}
+
+function rearrangeCardOrders(column) {
+    console.log(column)
+    for (let i = 0; i < column.length; i++) {
+        dataHandler.updateCardOrder(i, column[i].dataset.cardId)
     }
 }
