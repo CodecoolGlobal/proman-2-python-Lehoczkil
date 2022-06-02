@@ -104,10 +104,12 @@ function initDragAndDrop() {
                     let switchNum
                     let currentColumn = currentDrag.parentElement
                     let targetColumn = card.parentElement
-                    if (card.dataset.cardStatusId !== currentDrag.dataset.cardStatusId) {
-                        switchNum = 2
-                    } else {
+                    if (card.dataset.cardStatusId === currentDrag.dataset.cardStatusId) {
+                        // drop on same status, not as last card
                         switchNum = 1
+                    } else {
+                        // drop on different status, not as last card
+                        switchNum = 2
                     }
                     targetColumn.insertBefore(currentDrag, card)
                     switch (switchNum) {
@@ -115,9 +117,11 @@ function initDragAndDrop() {
                             rearrangeCardOrders(targetColumn.children)
                             break;
                         case 2:
+                            currentDrag.dataset.cardStatusId=card.dataset.cardStatusId
                             dataHandler.updateStatus(card.dataset.cardStatusId, currentDrag.dataset.cardId)
                             rearrangeCardOrders(currentColumn.children)
                             rearrangeCardOrders(targetColumn.children)
+                            break;
                     }
                 } else {
                     console.log('drop on card in different board is not allowed')
@@ -135,8 +139,10 @@ function initDragAndDrop() {
                 let currentColumn = currentDrag.parentElement
                 if (currentDrag.dataset.boardId === column.dataset.boardId) {
                     if (currentDrag.dataset.cardStatusId === column.dataset.statusId) {
+                        // drop on same status as last card
                         switchNum = 1
                     } else {
+                        // drop on different status as last card
                         switchNum = 2
                     }
                     column.append(currentDrag)
@@ -145,9 +151,11 @@ function initDragAndDrop() {
                             rearrangeCardOrders(column.children)
                             break;
                         case 2:
+                            currentDrag.dataset.cardStatusId = column.dataset.statusId
                             dataHandler.updateStatus(column.dataset.statusId, currentDrag.dataset.cardId)
                             rearrangeCardOrders(currentColumn.children)
                             rearrangeCardOrders(column.children)
+                            break;
                     }
                 } else {
                     console.log('drop on column in different board is not allowed')
@@ -261,6 +269,7 @@ function updateTitle(clickEvent) {
 
 function rearrangeCardOrders(column) {
     for (let i = 0; i < column.length; i++) {
+        column[i].dataset.cardOrder = i
         dataHandler.updateCardOrder(i, column[i].dataset.cardId)
     }
 }
