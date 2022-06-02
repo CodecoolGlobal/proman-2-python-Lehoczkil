@@ -164,3 +164,17 @@ def update_card_status(new_status_id, card_id):
             'card_id': card_id
         }
     )
+
+
+def update_card_order(new_card_order, card_id):
+    return data_manager.execute_update(
+        '''
+        UPDATE cards
+        SET card_order = %(new_card_order)s
+        WHERE id = %(card_id)s;
+        ''',
+        {
+            'new_card_order': new_card_order,
+            'card_id': card_id
+        }
+    )

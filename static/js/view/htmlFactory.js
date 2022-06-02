@@ -12,9 +12,12 @@ export function boardBuilder(board, status="not yet") {
 }
 
 export function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}" data-board-id='${card.board_id}'>
+    return `<div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}" data-board-id='${card.board_id}' data-card-order="${card.card_order}">
+                <div class="ghost"></div>
+                <div class="card-visible">
                 <div class="card-remove"><i class="fas fa-trash-alt remove-card" data-card-id-remove="${card.id}"></i></div>
                 <input width="auto" class="card-title borderless-input" data-card-id="${card.id}" value="${card.title}">
+                </div>
             </div>`;
 }
 

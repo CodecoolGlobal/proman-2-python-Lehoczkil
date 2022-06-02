@@ -72,6 +72,15 @@ export let dataHandler = {
                 'cardId': cardId
             }
             );
+    },
+    updateCardOrder: function (newCardOrder, cardId){
+        apiPut(
+            '/api/update_card_order',
+            {
+                'newCardOrder': newCardOrder,
+                'cardId': cardId
+            }
+        )
     }
 };
 
@@ -102,8 +111,7 @@ async function apiDelete(url) {
     }
 
 async function apiPut(url, payload) {
-    console.log(url, payload);
-    const response = await fetch(url, {
+    await fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
