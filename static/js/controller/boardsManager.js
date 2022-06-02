@@ -138,13 +138,25 @@ function initDragAndDrop() {
         }
         column.ondrop = (e) => {
             if (e.target === column) {
+                let switchNum
+                let currentColumn = currentDrag.parentElement
                 if (currentDrag.dataset.boardId === column.dataset.boardId) {
                     if (currentDrag.dataset.cardStatusId === column.dataset.statusId) {
-                        column.append(currentDrag)
                         console.log('status not changed, insert as last')
+                        switchNum = 1
                     } else {
-                        column.append(currentDrag)
                         console.log('status changed, insert as last')
+                        switchNum = 2
+                    }
+                    column.append(currentDrag)
+                    switch (switchNum) {
+                        case 1:
+                            rearrangeCardOrders(column.children)
+                            break;
+                        case 2:
+                            dataHandler.updateStatus(column.dataset.statusId, currentDrag.dataset.cardId)
+                            rearrangeCardOrders(currentColumn.children)
+                            rearrangeCardOrders(column.children)
                     }
                 } else {
                     // handle when card dropped to another board column
