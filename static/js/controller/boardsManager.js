@@ -173,7 +173,6 @@ async function addCardButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId
     const newCard = await dataHandler.createNewCard("newCard", boardId);
     domManager.addChild(`.board-column-content[data-board-id="${boardId}"]`, cardBuilder(newCard));
-    const newCardDeleteButton = document.querySelector(`[data-card-id-remove="${newCard.id}"]`)
     domManager.addEventListener(
         `[data-card-id-remove="${newCard.id}"]`,
         "click",
@@ -209,8 +208,11 @@ export function addNewBoardHandler() {
 
 export function addColumnHandler(event) {
     const boardID = event.currentTarget.dataset.boardId;
-    const addColumnButton = document.querySelector('.add-column-button');
     document.querySelector('.modal.add-column-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.add-column-modal').classList.remove('new-board-modal');
+    }));
     const saveChangesButton = document.querySelector('#save-status-button')
     saveChangesButton.addEventListener('click', saveChangesButton.handler = async () => {
         document.querySelector('.modal.add-column-modal').classList.remove('new-board-modal');
@@ -228,6 +230,34 @@ export function addColumnHandler(event) {
 }
 
 function deleteColumnHandler(event) {
+
+export function registerHandler() {
+    document.querySelector('.modal.register-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.register-modal').classList.remove('new-board-modal');
+    }));
+    const saveChangesButton = document.querySelector('#save-user-button')
+            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
+                document.querySelector('.modal.register-modal').classList.remove('new-board-modal');
+    });
+}
+
+
+export function loginHandler() {
+    document.querySelector('.modal.login-modal').classList.add('new-board-modal');
+    let modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    modalCloseButtons.forEach(button => button.addEventListener('click', async () => {
+        document.querySelector('.login-modal').classList.remove('new-board-modal');
+    }));
+    const saveChangesButton = document.querySelector('#enter-user-button')
+            saveChangesButton.addEventListener('click', saveChangesButton.handler=async () => {
+                document.querySelector('.modal.login-modal').classList.remove('new-board-modal');
+    });
+}
+
+
+function deleteColumnHandler(event){
     dataHandler.deleteStatus(event.target.dataset.statusIdRemove)
     event.target.parentElement.parentElement.remove()
 }

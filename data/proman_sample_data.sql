@@ -17,6 +17,7 @@ SET default_with_oids = false;
 --- drop tables
 ---
 
+DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS cards;
@@ -43,6 +44,13 @@ CREATE TABLE cards (
     title       VARCHAR (200)       NOT NULL,
     card_order  INTEGER             NOT NULL
 );
+
+CREATE TABLE users (
+    id serial NOT NULL,
+    username text,
+    password varchar(200) NOT NULL
+);
+
 
 ---
 --- insert data
@@ -74,6 +82,7 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 7, 'PLANNING', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'DONE CARD 2', 2);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'DONE CARD 1', 1);
 
+INSERT INTO users(username, password) VALUES ('sudo', 'sudo');
 ---
 --- add constraints
 ---

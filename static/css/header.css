@@ -1,0 +1,51 @@
+header {
+    padding: 0 30px;
+    background: var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-link {
+    color: white;
+    text-decoration: none;
+}
+
+.header-link:hover{
+    text-decoration: none;
+}
+
+#header-logo {
+    width: 40px;
+    padding: 10px;
+}
+
+#header-title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 60px;
+    color: white;
+    margin: 0;
+    padding: 0 6px;
+}
+
+#header-title:hover {
+    color: var(--blue);
+    transition: 0.2s;
+}
+
+#header-auth {
+    margin-left: 82%;
+}
+
+#bt-register, #bt-login {
+    background: transparent;
+    border: none;
+}
+
+#bt-register:hover, #bt-login:hover {
+    background: var(--blue);
+    border-radius: 5px;
+    color: black;
+    transition: 0.2s;
+}
